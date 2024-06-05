@@ -1,3 +1,5 @@
+import findAll from "./findAll.js"
+
 export default function filterHiddenNodes(nodes) {
     let allHiddenNodes = []
     const hiddenParentNodes = []
@@ -5,7 +7,7 @@ export default function filterHiddenNodes(nodes) {
         if (node.visible === false && !allHiddenNodes.includes(node.id)) {
             hiddenParentNodes.push(node.id)
             // add all of the children as hidden nodes
-            const subNodes = parser_1.default.FindAll(node, () => true)
+            const subNodes = findAll(node, () => true)
             allHiddenNodes.push(node.id)
             subNodes.forEach((n) => allHiddenNodes.push(n.id))
         }

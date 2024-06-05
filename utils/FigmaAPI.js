@@ -47,10 +47,15 @@ export default class FigmaAPI {
     }
 
     async getComponentMapFromFiles(fileKeys) {
+        console.log("Fetching the component map for:", fileKeys)
         let componentMap = {}
 
         for (const fileId of fileKeys) {
-            const data = await this.fetchFromFigma(`${fileId}`, "files")
+            const file = await this.fetchFromFigma(`${fileId}`, "files")
+            const components = await this.fetchFromFigma(`${fileId}/components`, "files")
+            const componentSets = await this.fetchFromFigma(`${fileId}/component_sets`, "files")
+
+            console.log("Processing library file:", file.name)
 
             const processEntities = (entities) => {
                 for (const entity of entities) {
@@ -63,47 +68,61 @@ export default class FigmaAPI {
 
                     componentMap[entity.key] = {
                         componentName: getReadableName(),
-                        libraryName: data.name,
+                        libraryName: file.name,
                         libraryId: fileId,
                     }
                 }
             }
 
-            if (data.components) {
-                processEntities(data.components)
+            if (components.meta.components) {
+                processEntities(components.meta.components)
             }
 
-            if (data.componentSets) {
-                processEntities(data.componentSets)
+            if (componentSets.meta.componentSets) {
+                processEntities(componentSets.meta.componentSets)
             }
         }
-
+        console.log("Created component map.")
         return componentMap
     }
 
     async getTeamProjects() {
+        console.log("Fetching team projects")
         let projects = []
         const data = await this.fetchFromFigma(`projects`, "teams")
 
         if (data.projects) {
             projects = projects.concat(data.projects)
         }
-
+        console.log("Finished fetching team projects")
         return projects
     }
 
-    async getProjectFiles(projectId) {
+    async getProjectFiles(projectId, startTime = null, endTime = null) {
+        console.log("Fetching files for project:", projectId)
         let files = []
         const data = await this.fetchFromFigma(`${projectId}/files`, "projects")
 
         if (data.files) {
-            files = files.concat(data.files)
-        }
+            files = data.files.filter((file) => {
+                const lastModified = new Date(file.last_modified)
 
+                if (startTime && lastModified < startTime) {
+                    return false
+                }
+
+                if (endTime && lastModified > endTime) {
+                    return false
+                }
+
+                return true
+            })
+        }
         return files
     }
 
     async getFile(fileId) {
+        console.log("Fetching file:", fileId)
         return await this.fetchFromFigma(`${fileId}`, "files")
     }
 }

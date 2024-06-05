@@ -14,6 +14,9 @@ export default function calculateStats(allNodes, componentNodes, nonComponentNod
 
         componentUsage[componentName].count++
     })
+    // TODO
+    // numComponentNodes and numNonComponentNodes somehow doesnt add up
+    // componentUsage has only one entry which is undefined
 
     return {
         numTotalNodes: allNodes.length,

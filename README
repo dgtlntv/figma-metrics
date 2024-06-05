@@ -8,7 +8,7 @@ In order for the script to work you need to set the following enviroment variabl
 -   FIGMA-TEAM-ID
 -   FIGMA_LIBRARY_FILES
 
-For `FIGMA_LIBRARY_FILES` a stringified array of Figma file id's is expected.
+For `FIGMA_LIBRARY_FILES` a comma separated list is expected.
 
 ## The stats
 

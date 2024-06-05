@@ -1,0 +1,15 @@
+{
+    "name": "figma-metrics",
+    "version": "1.0.0",
+    "description": "This library aims to calculate usage of Figma components (coming from predetermined files) across all files of a Figma team. It will separate these statistics by projects and files in those projects.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "dotenv": "^16.4.5"
+    }
+}

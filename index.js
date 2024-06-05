@@ -1,23 +1,28 @@
-import FigmaAPI from "./utils/FigmaAPI"
-import findAll from "./utils/findAll"
-import filterHiddenNodes from "./utils/filterHiddenNodes"
-import calculateStats from "./utils/calculateStats"
-import filterReadyForDev from "./utils/filterReadyForDev"
-import processAndFilterNodes from "./utils/processAndFilterNodes"
+import "dotenv/config"
+import FigmaAPI from "./utils/FigmaAPI.js"
+import findAll from "./utils/findAll.js"
+import filterHiddenNodes from "./utils/filterHiddenNodes.js"
+import calculateStats from "./utils/calculateStats.js"
+import filterReadyForDev from "./utils/filterReadyForDev.js"
+import processAndFilterNodes from "./utils/processAndFilterNodes.js"
+import replaceComponentKeys from "./utils/replaceComponentKeys.js"
 
 async function main() {
     const API_TOKEN = process.env["FIGMA-API-TOKEN"]
     const FIGMA_TEAM_ID = process.env["FIGMA-TEAM-ID"]
-    const FIGMA_LIBRARY_FILES = JSON.parse(process.env["FIGMA_LIBRARY_FILES"])
+    const FIGMA_LIBRARY_FILES = process.env["FIGMA_LIBRARY_FILES"].split(",")
     const figmaApi = new FigmaAPI(API_TOKEN, FIGMA_TEAM_ID)
+    const startTime = new Date("2024-06-03")
+    const endTime = new Date("2024-06-05")
+
     // A map of all components we consider to be part of the Design System and want to track + some metadata of the component
     const componentMap = await figmaApi.getComponentMapFromFiles(FIGMA_LIBRARY_FILES)
     const projects = await figmaApi.getTeamProjects()
     const projectsData = []
 
-    for (let index = 0; index < projects; index++) {
-        console.log(`Fetching files of project ${projects[index].name}`)
-        const projectFiles = figmaApi.getProjectFiles(projects[index].id)
+    for (let index = 0; index < projects.length; index++) {
+        console.log(`Fetching file id's of project ${projects[index].name}`)
+        const projectFiles = await figmaApi.getProjectFiles(projects[index].id, startTime, endTime)
 
         if (projectFiles.length === 0) {
             console.log(`No files found for project ${projects[index].name}`)
@@ -25,27 +30,28 @@ async function main() {
         }
 
         const fileData = []
-        for (let index = 0; index < projectFiles; index++) {
-            const file = projectFiles[i]
+        for (let index = 0; index < projectFiles.length; index++) {
+            const file = projectFiles[index]
             const allNodesInFile = []
             const allComponentNodes = {}
             const detachedComponents = {}
             const allReadyForDevComponentNodes = {}
             const readyForDevDetachedComponents = {}
 
-            try {
-                const fileDocument = await figmaApi.getFile(file.key)
-            } catch (error) {
-                console.log(`Failed to fetch ${file.key}.`, error)
+            const fileDocument = await figmaApi.getFile(file.key)
+
+            if (fileDocument.length === 0) {
+                console.log(`Failed to fetch file document for ${file.name}`)
                 continue
             }
 
-            console.log(`Processing file of ${i + 1} of ${projectFiles.length}`)
+            console.log(`Processing file of ${index + 1} of ${projectFiles.length}`)
 
             // Creating a flat array of all nodes in a file and removing any hidden nodes
-            for (const page of fileDocument.children) {
+            for (const page of fileDocument.document.children) {
                 const allNodes = findAll(page, () => true)
                 const { nonHiddenNodes } = filterHiddenNodes(allNodes)
+                replaceComponentKeys(fileDocument, nonHiddenNodes)
                 allNodesInFile.push(...nonHiddenNodes)
             }
 
@@ -86,10 +92,16 @@ async function main() {
                 readyForDevDetachedComponents
             )
 
-            fileData.push({ wholeFileStats: wholeFileStats, readyForDevStats: readyForDevStats })
+            fileData.push({
+                fileId: file.key,
+                fileName: fileDocument.name,
+                wholeFileStats: wholeFileStats,
+                readyForDevStats: readyForDevStats,
+            })
         }
         projectsData.push({ projectName: projects[index].name, projectId: projects[index].id, files: fileData })
     }
+    console.log("Stats:", JSON.stringify(projectsData, null, 2))
 }
 
 await main()

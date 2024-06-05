@@ -1,4 +1,4 @@
-import findAll from "./findAll"
+import findAll from "./findAll.js"
 
 export default function processNodes(nodes, componentNodes, detachedComponents, componentMap) {
     nodes.forEach((node) => {

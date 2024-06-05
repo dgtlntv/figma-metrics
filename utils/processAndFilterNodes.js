@@ -1,5 +1,5 @@
-import processNodes from "./processNodes"
-import filterComponentNodes from "./filterComponentNodes"
+import processNodes from "./processNodes.js"
+import filterComponentNodes from "./filterComponentNodes.js"
 
 export default function processAndFilterNodes(nodes, componentNodes, detachedComponents, componentMap) {
     processNodes(nodes, componentNodes, detachedComponents, componentMap)
