@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@figma/plugin-typings": "^1.94.0",
+    "figma-calculations": "^0.1.82-alpha"
+  }
+}

@@ -1,0 +1,23 @@
+Set figma api token
+
+get all projects of team that have changed since last check
+
+for each project
+    const project = {projectName: project.name, projectId: project.id}
+
+    for each file in project
+        const nodes = get all nodes in file
+        const readyForDevNodes = get all nodes in ready for dev sections
+
+        find all components in nodes and readyForDevNodes
+            disregard componets from the same file?
+            take note of which library it comes from (add it to library counter)
+            take note of which component it is (add it to component counter)
+            check if it has overrides
+                we might need to ignore some overrides tho
+
+        find all detached components in nodes and readyForDevNodes (tracking pixel) (add it to detached counter)
+
+        calculate source mix for nodes and readyForDevNodes
+
+        add statistics for this file to project object
