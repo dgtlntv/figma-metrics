@@ -1,23 +1,23 @@
-Set figma api token
+# figma-metrics
 
-get all projects of team that have changed since last check
+This library aims to calculate usage of Figma components (coming from predetermined files) across all files of a Figma team. It will separate these statistics by projects and files in those projects.
 
-for each project
-    const project = {projectName: project.name, projectId: project.id}
+In order for the script to work you need to set the following enviroment variables:
 
-    for each file in project
-        const nodes = get all nodes in file
-        const readyForDevNodes = get all nodes in ready for dev sections
+-   FIGMA-API-TOKEN
+-   FIGMA-TEAM-ID
+-   FIGMA_LIBRARY_FILES
 
-        find all components in nodes and readyForDevNodes
-            disregard componets from the same file?
-            take note of which library it comes from (add it to library counter)
-            take note of which component it is (add it to component counter)
-            check if it has overrides
-                we might need to ignore some overrides tho
+For `FIGMA_LIBRARY_FILES` a stringified array of Figma file id's is expected.
 
-        find all detached components in nodes and readyForDevNodes (tracking pixel) (add it to detached counter)
+## The stats
 
-        calculate source mix for nodes and readyForDevNodes
+For each file the following stats are calculated:
 
-        add statistics for this file to project object
+-   The total number of nodes
+-   The total number of component nodes
+-   The total number of non component nodes
+-   The percantage of component nodes out of all nodes
+-   The percantage of non component nodes out of all nodes
+-   An object of all detached components and how many times they were used
+-   An object of all components that were used, how many times they were used and which library they come from

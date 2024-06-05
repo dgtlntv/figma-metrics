@@ -46,26 +46,39 @@ export default class FigmaAPI {
         }
     }
 
-    async getComponentsFromFile(fileKeys) {
-        let components = []
-        for (const fileId of fileKeys) {
-            const data = await this.fetchFromFigma(`${fileId}/components`, "files")
-            if (data.meta.components) {
-                components = components.concat(data.meta.components)
-            }
-        }
-        return components
-    }
+    async getComponentMapFromFiles(fileKeys) {
+        let componentMap = {}
 
-    async getComponentSetsFromFile(fileKeys) {
-        let components = []
         for (const fileId of fileKeys) {
-            const data = await this.fetchFromFigma(`${fileId}/component_sets`, "files")
-            if (data.meta.components) {
-                components = components.concat(data.meta.components)
+            const data = await this.fetchFromFigma(`${fileId}`, "files")
+
+            const processEntities = (entities) => {
+                for (const entity of entities) {
+                    const getReadableName = () => {
+                        if (entity.name.includes("=")) {
+                            return entity.containing_frame.name
+                        }
+                        return entity.name
+                    }
+
+                    componentMap[entity.key] = {
+                        componentName: getReadableName(),
+                        libraryName: data.name,
+                        libraryId: fileId,
+                    }
+                }
+            }
+
+            if (data.components) {
+                processEntities(data.components)
+            }
+
+            if (data.componentSets) {
+                processEntities(data.componentSets)
             }
         }
-        return components
+
+        return componentMap
     }
 
     async getTeamProjects() {

@@ -1,18 +1,16 @@
 import FigmaAPI from "./utils/FigmaAPI"
-import createComponentMap from "./utils/createComponentMap"
 import findAll from "./utils/findAll"
 import filterHiddenNodes from "./utils/filterHiddenNodes"
-import filterComponentNodes from "./utils/filterComponentNodes"
-import processNodes from "./utils/processNodes"
 import calculateStats from "./utils/calculateStats"
 import filterReadyForDev from "./utils/filterReadyForDev"
+import processAndFilterNodes from "./utils/processAndFilterNodes"
 
 async function main() {
     const API_TOKEN = process.env["FIGMA-API-TOKEN"]
     const FIGMA_TEAM_ID = process.env["FIGMA-TEAM-ID"]
     const FIGMA_LIBRARY_FILES = JSON.parse(process.env["FIGMA_LIBRARY_FILES"])
     const figmaApi = new FigmaAPI(API_TOKEN, FIGMA_TEAM_ID)
-    const componentMap = createComponentMap(figmaApi, FIGMA_LIBRARY_FILES)
+    const componentMap = await figmaApi.getComponentMapFromFiles(FIGMA_LIBRARY_FILES)
     const projects = await figmaApi.getTeamProjects()
     const projectsData = []
 
@@ -52,14 +50,20 @@ async function main() {
             const { nonComponentNodes, filteredComponentNodes } = processAndFilterNodes(
                 allNodesInFile,
                 allComponentNodes,
-                detachedComponents
+                detachedComponents,
+                componentMap
             )
 
             const readyForDevNodes = filterReadyForDev(allNodesInFile)
             const {
                 nonComponentNodes: readyForDevNonComponentNodes,
                 filteredComponentNodes: filteredReadyForDevComponentNodes,
-            } = processAndFilterNodes(readyForDevNodes, allReadyForDevComponentNodes, readyForDevDetachedComponents)
+            } = processAndFilterNodes(
+                readyForDevNodes,
+                allReadyForDevComponentNodes,
+                readyForDevDetachedComponents,
+                componentMap
+            )
 
             const wholeFileStats = calculateStats(
                 allNodesInFile,
@@ -79,3 +83,5 @@ async function main() {
         projectsData.push({ projectName: projects[index].name, projectId: projects[index].id, files: fileData })
     }
 }
+
+await main()
