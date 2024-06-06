@@ -2,11 +2,8 @@ import findAll from "./findAll.js"
 
 export default function filterHiddenNodes(nodes) {
     let allHiddenNodes = []
-    const hiddenParentNodes = []
     nodes.forEach((node) => {
         if (node.visible === false && !allHiddenNodes.includes(node.id)) {
-            hiddenParentNodes.push(node.id)
-            // add all of the children as hidden nodes
             const subNodes = findAll(node, () => true)
             allHiddenNodes.push(node.id)
             subNodes.forEach((n) => allHiddenNodes.push(n.id))
@@ -20,9 +17,5 @@ export default function filterHiddenNodes(nodes) {
         }
         return true
     })
-    return {
-        hiddenParentNodes,
-        nonHiddenNodes,
-        numHiddenLayers: allHiddenNodes.length,
-    }
+    return nonHiddenNodes
 }

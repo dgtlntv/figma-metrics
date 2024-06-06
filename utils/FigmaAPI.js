@@ -54,10 +54,9 @@ export default class FigmaAPI {
             const file = await this.fetchFromFigma(`${fileId}`, "files")
             const components = await this.fetchFromFigma(`${fileId}/components`, "files")
             const componentSets = await this.fetchFromFigma(`${fileId}/component_sets`, "files")
-
             console.log("Processing library file:", file.name)
 
-            const processEntities = (entities) => {
+            const processEntities = (entities, componentSetMap) => {
                 for (const entity of entities) {
                     const getReadableName = () => {
                         if (entity.name.includes("=")) {
@@ -66,22 +65,30 @@ export default class FigmaAPI {
                         return entity.name
                     }
 
+                    const componentSetKey = componentSetMap[entity.containing_frame.nodeId]
+
                     componentMap[entity.key] = {
                         componentName: getReadableName(),
+                        componentId: entity.key,
                         libraryName: file.name,
                         libraryId: fileId,
+                        ...(componentSetKey && { componentSetKey }),
                     }
                 }
             }
 
-            if (components.meta.components) {
-                processEntities(components.meta.components)
+            const componentSetMap = {}
+            if (componentSets.meta.component_sets) {
+                for (const componentSet of componentSets.meta.component_sets) {
+                    componentSetMap[componentSet.node_id] = componentSet.key
+                }
             }
 
-            if (componentSets.meta.componentSets) {
-                processEntities(componentSets.meta.componentSets)
+            if (components.meta.components) {
+                processEntities(components.meta.components, componentSetMap)
             }
         }
+
         console.log("Created component map.")
         return componentMap
     }

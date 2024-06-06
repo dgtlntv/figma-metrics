@@ -1,29 +1,35 @@
-export default function calculateStats(allNodes, componentNodes, nonComponentNodes, detachedComponents) {
+export default function calculateStats(allNodes, componentNodes, detachedComponents) {
     const componentUsage = {}
+    let numComponentNodes = 0
 
     Object.values(componentNodes).forEach((node) => {
-        const componentName = node.name
-        const libraryName = node.library
+        const componentName = node.componentName
+        const libraryName = node.libraryName
+        const componentKey = node.componentSetKey || node.componentId
 
-        if (!componentUsage[componentName]) {
-            componentUsage[componentName] = {
+        if (!componentUsage[componentKey]) {
+            componentUsage[componentKey] = {
+                componentName: componentName,
+                libraryName: libraryName,
                 count: 0,
-                library: libraryName,
             }
         }
+        componentUsage[componentKey].count++
 
-        componentUsage[componentName].count++
+        // Count the number of layers within each component instance
+        numComponentNodes += node.layers.length
     })
-    // TODO
-    // numComponentNodes and numNonComponentNodes somehow doesnt add up
-    // componentUsage has only one entry which is undefined
+
+    // Add the number of component instances to the total count
+    numComponentNodes += Object.keys(componentNodes).length
+    const nonComponentNodes = allNodes.length - numComponentNodes
 
     return {
         numTotalNodes: allNodes.length,
-        numComponentNodes: Object.keys(componentNodes).length,
-        numNonComponentNodes: nonComponentNodes.length,
-        sourceMixComponentNodes: Math.round((Object.keys(componentNodes).length / allNodes.length) * 100),
-        sourceMixNonComponentNodes: Math.round((nonComponentNodes.length / allNodes.length) * 100),
+        numComponentNodes: numComponentNodes,
+        numNonComponentNodes: nonComponentNodes,
+        sourceMixComponentNodes: Math.round((numComponentNodes / allNodes.length) * 100),
+        sourceMixNonComponentNodes: Math.round((nonComponentNodes / allNodes.length) * 100),
         detachedComponents: detachedComponents,
         componentUsage: componentUsage,
     }
