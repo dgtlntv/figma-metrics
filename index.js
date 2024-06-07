@@ -13,7 +13,7 @@ async function main() {
     const FIGMA_TEAM_ID = process.env["FIGMA-TEAM-ID"]
     const FIGMA_LIBRARY_FILES = process.env["FIGMA_LIBRARY_FILES"].split(",")
     const figmaApi = new FigmaAPI(API_TOKEN, FIGMA_TEAM_ID)
-    const startTime = new Date("2024-06-03")
+    const startTime = new Date("2024-05-07")
     const endTime = new Date("2024-06-07")
 
     // A map of all components we consider to be part of the Design System and want to track + some metadata of the component
@@ -48,9 +48,17 @@ async function main() {
             replaceComponentKeys(fileDocument, nonHiddenNodes)
 
             // Process the nodes of the file: check for components from our componentMap, check for detachedComponents
-            const { componentNodes, detachedComponents } = processNodes(nonHiddenNodes, componentMap)
+            const { componentNodes, totalComponentNodeCount, detachedComponents } = processNodes(
+                nonHiddenNodes,
+                componentMap
+            )
 
-            const wholeFileStats = calculateStats(nonHiddenNodes, componentNodes, detachedComponents)
+            const wholeFileStats = calculateStats(
+                nonHiddenNodes,
+                componentNodes,
+                totalComponentNodeCount,
+                detachedComponents
+            )
 
             // The previous filtering was for the whole Figma file.
             // While these stats are also interesting we can not really judge someone for explorig with non design system components.
@@ -65,11 +73,15 @@ async function main() {
             }
 
             if (readyForDevNodes.length > 0) {
-                const { componentNodes: readyForDevComponentNodes, detachedComponents: readyForDevDetachedComponents } =
-                    processNodes(readyForDevNodes, componentMap)
+                const {
+                    componentNodes: readyForDevComponentNodes,
+                    totalComponentNodeCount: readyForDevTotalComponentNodeCount,
+                    detachedComponents: readyForDevDetachedComponents,
+                } = processNodes(readyForDevNodes, componentMap)
                 const readyForDevStats = calculateStats(
                     readyForDevNodes,
                     readyForDevComponentNodes,
+                    readyForDevTotalComponentNodeCount,
                     readyForDevDetachedComponents
                 )
                 fileDataObject["readyForDevStats"] = readyForDevStats
@@ -79,7 +91,7 @@ async function main() {
         }
         projectsData.push({ projectName: projects[index].name, projectId: projects[index].id, files: fileData })
     }
-    fs.writeFile("figma-metrics.json", JSON.stringify(projectsData, null, 2), (err) => {
+    fs.writeFile("./out/figma-metrics.json", JSON.stringify(projectsData, null, 2), (err) => {
         if (err) throw err
         console.log("The figma metrics have been saved to file!")
     })

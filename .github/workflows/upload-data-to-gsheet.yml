@@ -1,0 +1,49 @@
+name: Upload data to Google Sheet
+on:
+    workflow_dispatch:
+jobs:
+    update-sheet:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Read sheet1Data.json
+              id: read_sheet1_data_json
+              uses: jaywcjlove/github-action-read-file@main
+              with:
+                  path: ./out/sheet1Data.json
+            - name: Read sheet2Data.json
+              id: read_sheet2_data_json
+              uses: jaywcjlove/github-action-read-file@main
+              with:
+                  path: ./out/sheet2Data.json
+            - name: Read sheet3Data.json
+              id: read_sheet3_data_json
+              uses: jaywcjlove/github-action-read-file@main
+              with:
+                  path: ./out/sheet3Data.json
+            - name: Echo sheet1Data.json
+              run: echo "${{ steps.read_sheet1_data_json.outputs.content }}"
+            - name: Echo sheet2Data.json
+              run: echo "${{ steps.read_sheet2_data_json.outputs.content }}"
+            - name: Echo sheet3Data.json
+              run: echo "${{ steps.read_sheet3_data_json.outputs.content }}"
+            - name: Update worksheets
+              id: update_worksheets
+              uses: jroehl/gsheet.action@release
+              with:
+                  spreadsheetId: 1KC8k0460COgU9ZxBP9CRLEuunOjz4TlsQy4p82BNlA4
+                  commands: |
+                      [
+                        { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
+                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet1_data_json.outputs.content }} }},
+                        { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
+                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet2_data_json.outputs.content }} }},
+                        { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
+                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet3_data_json.outputs.content }} }}
+                      ]
+              env:
+                  GSHEET_CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+                  GSHEET_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+            - name: Echo worksheet update results
+              env:
+                  RESULTS: ${{ steps.update_worksheets.outputs.results }}
+              run: echo "$RESULTS" | jq

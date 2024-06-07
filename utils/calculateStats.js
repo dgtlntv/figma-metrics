@@ -1,6 +1,5 @@
-export default function calculateStats(allNodes, componentNodes, detachedComponents) {
+export default function calculateStats(allNodes, componentNodes, totalComponentNodeCount, detachedComponents) {
     const componentUsage = {}
-    let numComponentNodes = 0
 
     Object.values(componentNodes).forEach((node) => {
         const componentName = node.componentName
@@ -15,20 +14,15 @@ export default function calculateStats(allNodes, componentNodes, detachedCompone
             }
         }
         componentUsage[componentKey].count++
-
-        // Count the number of layers within each component instance
-        numComponentNodes += node.layers.length
     })
 
-    // Add the number of component instances to the total count
-    numComponentNodes += Object.keys(componentNodes).length
-    const nonComponentNodes = allNodes.length - numComponentNodes
+    const nonComponentNodes = allNodes.length - totalComponentNodeCount
 
     return {
         numTotalNodes: allNodes.length,
-        numComponentNodes: numComponentNodes,
+        numComponentNodes: totalComponentNodeCount,
         numNonComponentNodes: nonComponentNodes,
-        sourceMixComponentNodes: Math.round((numComponentNodes / allNodes.length) * 100),
+        sourceMixComponentNodes: Math.round((totalComponentNodeCount / allNodes.length) * 100),
         sourceMixNonComponentNodes: Math.round((nonComponentNodes / allNodes.length) * 100),
         detachedComponents: detachedComponents,
         componentUsage: componentUsage,

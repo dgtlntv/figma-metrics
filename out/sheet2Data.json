@@ -1,0 +1,852 @@
+[
+  [
+    "Project",
+    "File",
+    "% Design System Library",
+    "% 🔶 app-layout components",
+    "% 🔴 [EDGE] Vanilla - Core component library",
+    "N° Design System Library",
+    "N° 🔶 app-layout components",
+    "N° 🔴 [EDGE] Vanilla - Core component library"
+  ],
+  [
+    "22.10 Brand",
+    "Feedback - 20 years storyboard",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "22.10 Brand",
+    "Icons survey",
+    "100%",
+    "0%",
+    "0%",
+    84,
+    0,
+    0
+  ],
+  [
+    "22.10 Web",
+    "Partners",
+    "100%",
+    "0%",
+    "0%",
+    1365,
+    0,
+    0
+  ],
+  [
+    "24.04 Juju",
+    "24.04 juju.is redesign",
+    "98%",
+    "2%",
+    "0%",
+    8468,
+    213,
+    0
+  ],
+  [
+    "24.04 Support portal",
+    "24.04 Support portal improvements",
+    "81%",
+    "5%",
+    "15%",
+    1379,
+    78,
+    248
+  ],
+  [
+    "24.04 Workplace Engineering",
+    "24.04 Compensation tool",
+    "1%",
+    "99%",
+    "0%",
+    5,
+    418,
+    0
+  ],
+  [
+    "24.10 Application layout",
+    "Grid exploration",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "24.10 Brand",
+    "Canonical 2D illustrations library",
+    "100%",
+    "0%",
+    "0%",
+    136,
+    0,
+    0
+  ],
+  [
+    "24.10 Brand",
+    "Employee Spotlight file",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "24.10 Brand",
+    "Product video intro",
+    "100%",
+    "0%",
+    "0%",
+    2,
+    0,
+    0
+  ],
+  [
+    "24.10 Brand",
+    "social-media/Banners",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "24.10 Juju",
+    "24.10 jaas.ai copy changes",
+    "100%",
+    "0%",
+    "0%",
+    1532,
+    0,
+    0
+  ],
+  [
+    "24.10 Juju",
+    "24.10 juju.is layout adjustments",
+    "100%",
+    "0%",
+    "0%",
+    984,
+    0,
+    0
+  ],
+  [
+    "24.10 Sites",
+    "24.10 Canonical.com/solutions/ai-infrastructure",
+    "100%",
+    "0%",
+    "0%",
+    115,
+    0,
+    0
+  ],
+  [
+    "Application layout products",
+    "Apps vision",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    4,
+    0
+  ],
+  [
+    "Application layout products",
+    "Table bulk selection",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "Application layout products",
+    "✅ Select multiple / Combo box - component",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    590,
+    0
+  ],
+  [
+    "Application layout products",
+    "🔶 app-layout components",
+    "1%",
+    "99%",
+    "0%",
+    6,
+    1134,
+    0
+  ],
+  [
+    "Commercial",
+    "24.04 Contracts Portals",
+    "30%",
+    "70%",
+    "0%",
+    2527,
+    5801,
+    0
+  ],
+  [
+    "Commercial",
+    "Reseller/distributor store",
+    "40%",
+    "60%",
+    "0%",
+    1829,
+    2755,
+    0
+  ],
+  [
+    "Commercial",
+    "Unifying Pro subs behaviour",
+    "35%",
+    "65%",
+    "0%",
+    163,
+    307,
+    0
+  ],
+  [
+    "Design System Tribe",
+    "Brand logos - Variable width",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "Design System Tribe",
+    "Canonical.com latest only",
+    "100%",
+    "0%",
+    "0%",
+    2802,
+    0,
+    0
+  ],
+  [
+    "Design System Tribe",
+    "Design system guidelines v. 0.1",
+    "100%",
+    "0%",
+    "0%",
+    1399,
+    0,
+    0
+  ],
+  [
+    "Design System Tribe",
+    "White Paper Quality Check",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "Design Systems Working group (DSWG)",
+    "Design system architecture diagram",
+    "100%",
+    "0%",
+    "0%",
+    1,
+    0,
+    0
+  ],
+  [
+    "Design Systems Working group (DSWG)",
+    "decap cms migration",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    21,
+    0
+  ],
+  [
+    "Design Systems Working group (DSWG)",
+    "📃 DRAFT - Figma Component Page",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    3,
+    0
+  ],
+  [
+    "LXD",
+    "LXD Multisite Manager",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    9,
+    0
+  ],
+  [
+    "LXD",
+    "LXD-UI Interface Components",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    199,
+    0
+  ],
+  [
+    "LXD",
+    "Navbar Login Status",
+    "0%",
+    "100%",
+    "0%",
+    0,
+    198,
+    0
+  ],
+  [
+    "MAAS",
+    "Image provisioning",
+    "2%",
+    "98%",
+    "0%",
+    333,
+    17549,
+    0
+  ],
+  [
+    "MAAS",
+    "Reserved IPs",
+    "0%",
+    "43%",
+    "57%",
+    0,
+    12690,
+    17029
+  ],
+  [
+    "Miscellaneous",
+    "Login UI",
+    "37%",
+    "63%",
+    "0%",
+    1460,
+    2526,
+    0
+  ],
+  [
+    "Miscellaneous",
+    "Reference library",
+    "0%",
+    "79%",
+    "21%",
+    0,
+    703,
+    184
+  ],
+  [
+    "Miscellaneous",
+    "Technical Authors x Design",
+    "82%",
+    "18%",
+    "0%",
+    280,
+    60,
+    0
+  ],
+  [
+    "Miscellaneous",
+    "Untitled",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "Multipass",
+    "User story map",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "Open Design WG",
+    "ODWG Socials",
+    "100%",
+    "0%",
+    "0%",
+    2,
+    0,
+    0
+  ],
+  [
+    "Open Design WG",
+    "Web Presence",
+    "100%",
+    "0%",
+    "0%",
+    43,
+    0,
+    0
+  ],
+  [
+    "Vanilla WIP",
+    "Sites library",
+    "100%",
+    "0%",
+    "0%",
+    1214,
+    0,
+    0
+  ],
+  [
+    "Workplace Engineering",
+    "Careers",
+    "100%",
+    "0%",
+    "0%",
+    1469,
+    0,
+    0
+  ],
+  [
+    "✨ New lib",
+    "☠️ [WIP - DO NOT USE] Sites - Core component library",
+    "0%",
+    "0%",
+    "100%",
+    0,
+    0,
+    44
+  ],
+  [
+    "✨ New lib",
+    "🔴 [EDGE] Brand - Assets library",
+    "0%",
+    "0%",
+    "100%",
+    0,
+    0,
+    56
+  ],
+  [
+    "✨ New lib",
+    "🔴 [EDGE] Utilities - Utilities library",
+    "0%",
+    "35%",
+    "65%",
+    0,
+    26,
+    49
+  ],
+  [
+    "✨ New lib",
+    "🔴 [EDGE] Vanilla - Assets library",
+    "0%",
+    "0%",
+    "100%",
+    0,
+    0,
+    25
+  ],
+  [
+    "✨ New lib",
+    "🔴 [EDGE] Yaru - Assets library",
+    "0%",
+    "0%",
+    "100%",
+    0,
+    0,
+    60
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "24.04. Context sensitive help",
+    "56%",
+    "44%",
+    "0%",
+    1217,
+    944,
+    0
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "24.04. Device emulation",
+    "49%",
+    "51%",
+    "0%",
+    5010,
+    5219,
+    0
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "24.04. Instance Creation",
+    "37%",
+    "63%",
+    "0%",
+    1345,
+    2300,
+    0
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "24.04. Merging flows",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "Ege's onboarding learnings",
+    "100%",
+    "0%",
+    "0%",
+    36,
+    0,
+    0
+  ],
+  [
+    "✳️​ Anbox Cloud",
+    "IA & Sitemap",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "✴️ KernelFactory",
+    "Channels",
+    "42%",
+    "58%",
+    "0%",
+    261,
+    363,
+    0
+  ],
+  [
+    "✴️ KernelFactory",
+    "KernelFactory User story mapping (complete)",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "✴️ KernelFactory",
+    "User profile + Tokens",
+    "41%",
+    "59%",
+    "0%",
+    179,
+    256,
+    0
+  ],
+  [
+    "✴️ KernelFactory",
+    "UserStoryMap",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "23.10 Microk8s.io (rebranding)",
+    "100%",
+    "0%",
+    "0%",
+    835,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.04 Canonical.com/solutions/big-data-ai",
+    "100%",
+    "0%",
+    "0%",
+    94,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.04 Core Success Stories",
+    "100%",
+    "0%",
+    "0%",
+    541,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.04 U.com - Firefighting Support",
+    "100%",
+    "0%",
+    "0%",
+    1011,
+    1,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.04 U.com - download (rebranding)",
+    "100%",
+    "0%",
+    "0%",
+    3265,
+    3,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.04 jp.ubuntu.com/certified",
+    "100%",
+    "0%",
+    "0%",
+    142,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "24.10 U.com - Security > FedRAMP",
+    "100%",
+    "0%",
+    "0%",
+    58,
+    0,
+    0
+  ],
+  [
+    "🌐 Sites",
+    "Canonical.com/solutions/secure-open-source",
+    "100%",
+    "0%",
+    "0%",
+    360,
+    0,
+    0
+  ],
+  [
+    "🏔️ Landscape",
+    "Research planning 24.10",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "🏔️ Landscape",
+    "Roadmap 24.10",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "🏔️ Landscape",
+    "🔓 SSO Login [24.10]",
+    "16%",
+    "73%",
+    "11%",
+    162,
+    759,
+    112
+  ],
+  [
+    "🐿 24.04 Marketplace 🧺",
+    "24.04 Charmhub solution focus",
+    "84%",
+    "16%",
+    "0%",
+    1009,
+    197,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "23.04 Ubuntu Software",
+    "100%",
+    "0%",
+    "0%",
+    27039,
+    0,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "24.04 AppArmor prompting",
+    "64%",
+    "36%",
+    "0%",
+    27,
+    15,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "24.04.1 App Center: Debian install support",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "App Center",
+    "33%",
+    "67%",
+    "0%",
+    122,
+    251,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "AppArmor Prompting - Notifications explorations",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "💻 Ubuntu Desktop",
+    "Security Center",
+    "13%",
+    "87%",
+    "0%",
+    45,
+    296,
+    0
+  ],
+  [
+    "📚 Libraries",
+    "Brand Logos",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "📚 Libraries",
+    "Canonical 2D Illustration library",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "📚 Libraries",
+    "Canonical icon library",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "📚 Libraries",
+    "Yaru Components",
+    "0%",
+    "0%",
+    "0%",
+    0,
+    0,
+    0
+  ],
+  [
+    "🔰 Launchpad",
+    "24.04. Launchpad - Discovery",
+    "100%",
+    "0%",
+    "0%",
+    192,
+    0,
+    0
+  ],
+  [
+    "🔰 Launchpad",
+    "24.04. Security & Commitment Tracker: Areas of opportunity",
+    "100%",
+    "0%",
+    "0%",
+    10,
+    0,
+    0
+  ],
+  [
+    "🦌 22.10 Marketplace 🧺",
+    "22.10. Main navigation",
+    "100%",
+    "0%",
+    "0%",
+    3553,
+    0,
+    0
+  ],
+  [
+    "🦜 24.10 Marketplace 🧺",
+    "24.10 charmhub multi-base charm revisions",
+    "83%",
+    "17%",
+    "0%",
+    403,
+    81,
+    0
+  ],
+  [
+    "🦞 23.04 Sites 🌐",
+    "23.04 U.com - CVEs",
+    "100%",
+    "0%",
+    "0%",
+    7954,
+    19,
+    0
+  ]
+]
