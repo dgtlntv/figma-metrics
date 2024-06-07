@@ -9,17 +9,17 @@ jobs:
               id: read_sheet1_data_json
               uses: jaywcjlove/github-action-read-file@main
               with:
-                  path: ./out/sheet1Data.json
+                  path: out/sheet1Data.json
             - name: Read sheet2Data.json
               id: read_sheet2_data_json
               uses: jaywcjlove/github-action-read-file@main
               with:
-                  path: ./out/sheet2Data.json
+                  path: out/sheet2Data.json
             - name: Read sheet3Data.json
               id: read_sheet3_data_json
               uses: jaywcjlove/github-action-read-file@main
               with:
-                  path: ./out/sheet3Data.json
+                  path: out/sheet3Data.json
             - name: Echo sheet1Data.json
               run: echo "${{ steps.read_sheet1_data_json.outputs.content }}"
             - name: Echo sheet2Data.json
