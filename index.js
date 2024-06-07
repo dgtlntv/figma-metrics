@@ -8,8 +8,8 @@ import processNodes from "./utils/processNodes.js"
 import replaceComponentKeys from "./utils/replaceComponentKeys.js"
 
 async function main() {
-    const API_TOKEN = process.env["FIGMA-API-TOKEN"]
-    const FIGMA_TEAM_ID = process.env["FIGMA-TEAM-ID"]
+    const API_TOKEN = process.env["FIGMA_API_TOKEN"]
+    const FIGMA_TEAM_ID = process.env["FIGMA_TEAM_ID"]
     const FIGMA_LIBRARY_FILES = process.env["FIGMA_LIBRARY_FILES"].split(",")
     const figmaApi = new FigmaAPI(API_TOKEN, FIGMA_TEAM_ID)
     const startTime = new Date("2024-05-07")
