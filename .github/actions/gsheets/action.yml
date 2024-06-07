@@ -16,34 +16,44 @@ runs:
           run: node transform.js $(ls -td archive/*/ | head -1)figma-metrics.json
           shell: bash
 
-        - name: Read sheet1Data.json
-          id: read_sheet1_data_json
-          uses: jaywcjlove/github-action-read-file@main
+        - name: Read sheet1_data.json
+          id: read_sheet1_data
+          uses: actions/github-script@v6
           with:
-              path: sheet1_data.json
+              script: |
+                  const fs = require('fs')
+                  const sheet1Data = JSON.parse(fs.readFileSync('sheet1_data.json', 'utf8'))
+                  core.setOutput('sheet1_data', JSON.stringify(sheet1Data))
 
-        - name: Read sheet2Data.json
-          id: read_sheet2_data_json
-          uses: jaywcjlove/github-action-read-file@main
+        - name: Read sheet2_data.json
+          id: read_sheet2_data
+          uses: actions/github-script@v6
           with:
-              path: sheet2_data.json
+              script: |
+                  const fs = require('fs')
+                  const sheet2Data = JSON.parse(fs.readFileSync('sheet2_data.json', 'utf8'))
+                  core.setOutput('sheet2_data', JSON.stringify(sheet2Data))
 
-        - name: Read sheet3Data.json
-          id: read_sheet3_data_json
-          uses: jaywcjlove/github-action-read-file@main
+        - name: Read sheet3_data.json
+          id: read_sheet3_data
+          uses: actions/github-script@v6
           with:
-              path: sheet3_data.json
+              script: |
+                  const fs = require('fs')
+                  const sheet3Data = JSON.parse(fs.readFileSync('sheet3_data.json', 'utf8'))
+                  core.setOutput('sheet3_data', JSON.stringify(sheet3Data))
 
         - name: Update worksheets
           id: update_worksheets
           uses: jroehl/gsheet.action@release
           with:
-              spreadsheetId: 1vL8Z7BhmcLxkNGKQm6emI0gQwy_e4Lvq5PUqdCEw7C4
+              spreadsheetId: 1KC8k0460COgU9ZxBP9CRLEuunOjz4TlsQy4p82BNlA4
               commands: |
                   [
-                  { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
-                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet1_data_json.outputs.content }} }},
-                  { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
-                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet2_data_json.outputs.content }} }},
-                  { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
-                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet3_data_json.outputs.content }} }}
+                      { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
+                      { "command": "updateData", "args": { "data": ${{ steps.read_sheet1_data.outputs.sheet1_data }} }},
+                      { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
+                      { "command": "updateData", "args": { "data": ${{ steps.read_sheet2_data.outputs.sheet2_data }} }},
+                      { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
+                      { "command": "updateData", "args": { "data": ${{ steps.read_sheet3_data.outputs.sheet3_data }} }}
+                  ]
