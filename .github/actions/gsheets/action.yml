@@ -13,33 +13,49 @@ runs:
           shell: bash
 
         - name: Transform data
-          id: transform_data
-          run: |
-              output=$(node transform.js $(ls -td archive/*/ | head -1)figma-metrics.json)
-              echo "Transform script output:"
-              echo "$output"
-              echo "sheet1Data=$(echo '$output' | jq -r '.[0]')" >> $GITHUB_OUTPUT
-              echo "sheet2Data=$(echo '$output' | jq -r '.[1]')" >> $GITHUB_OUTPUT
-              echo "sheet3Data=$(echo '$output' | jq -r '.[2]')" >> $GITHUB_OUTPUT
+          run: node transform.js $(ls -td archive/*/ | head -1)figma-metrics.json
+          shell: bash
+
+        - name: Read sheet1Data.json
+          id: read_sheet1_data_json
+          uses: jaywcjlove/github-action-read-file@main
+          with:
+              path: sheet1Data.json
+
+        - name: Read sheet2Data.json
+          id: read_sheet2_data_json
+          uses: jaywcjlove/github-action-read-file@main
+          with:
+              path: sheet2Data.json
+
+        - name: Read sheet3Data.json
+          id: read_sheet3_data_json
+          uses: jaywcjlove/github-action-read-file@main
+          with:
+              path: sheet3Data.json
+
+        - name: Echo sheet1Data.json
+          run: echo "${{ steps.read_sheet1_data_json.outputs.content }}"
+          shell: bash
+
+        - name: Echo sheet2Data.json
+          run: echo "${{ steps.read_sheet2_data_json.outputs.content }}"
+          shell: bash
+
+        - name: Echo sheet3Data.json
+          run: echo "${{ steps.read_sheet3_data_json.outputs.content }}"
           shell: bash
 
         - name: Update worksheets
           id: update_worksheets
           uses: jroehl/gsheet.action@release
           with:
-              spreadsheetId: 1KC8k0460COgU9ZxBP9CRLEuunOjz4TlsQy4p82BNlA4
+              spreadsheetId: 1vL8Z7BhmcLxkNGKQm6emI0gQwy_e4Lvq5PUqdCEw7C4
               commands: |
                   [
-                    { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
-                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet1Data }} }},
-                    { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
-                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet2Data }} }},
-                    { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
-                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet3Data }} }}
-                  ]
-
-        - name: Echo worksheet update results
-          env:
-              RESULTS: ${{ steps.update_worksheets.outputs.results }}
-          run: echo "$RESULTS" | jq
-          shell: bash
+                  { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
+                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet1_data_json.outputs.content }} }},
+                  { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
+                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet2_data_json.outputs.content }} }},
+                  { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
+                  { "command": "updateData", "args": { "data": ${{ steps.read_sheet3_data_json.outputs.content }} }}

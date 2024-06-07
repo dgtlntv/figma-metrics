@@ -103,4 +103,6 @@ const latestMetricsFile = process.argv[2]
 var jsonData = JSON.parse(fs.readFileSync(latestMetricsFile, "utf8"))
 
 const transformedData = transformData(jsonData)
-process.stdout.write(JSON.stringify(transformedData))
+fs.writeFileSync("sheet1_data.json", JSON.stringify(transformedData[0]))
+fs.writeFileSync("sheet2_data.json", JSON.stringify(transformedData[1]))
+fs.writeFileSync("sheet3_data.json", JSON.stringify(transformedData[2]))
