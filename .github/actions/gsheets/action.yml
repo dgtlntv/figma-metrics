@@ -15,7 +15,7 @@ runs:
         - name: Transform data
           id: transform_data
           run: |
-              output=$(node transform-data.js ${{ steps.get_latest_metrics.outputs.latest_file }})
+              output=$(node transform.js ${{ steps.get_latest_metrics.outputs.latest_file }})
               echo "sheet1Data=$(echo $output | jq -r '.[0]')" >> $GITHUB_OUTPUT
               echo "sheet2Data=$(echo $output | jq -r '.[1]')" >> $GITHUB_OUTPUT
               echo "sheet3Data=$(echo $output | jq -r '.[2]')" >> $GITHUB_OUTPUT
