@@ -20,12 +20,6 @@ jobs:
               uses: jaywcjlove/github-action-read-file@main
               with:
                   path: out/sheet3Data.json
-            - name: Echo sheet1Data.json
-              run: echo "${{ steps.read_sheet1_data_json.outputs.content }}"
-            - name: Echo sheet2Data.json
-              run: echo "${{ steps.read_sheet2_data_json.outputs.content }}"
-            - name: Echo sheet3Data.json
-              run: echo "${{ steps.read_sheet3_data_json.outputs.content }}"
             - name: Update worksheets
               id: update_worksheets
               uses: jroehl/gsheet.action@release
