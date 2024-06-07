@@ -1,4 +1,3 @@
-import "dotenv/config"
 import * as fs from "fs"
 import FigmaAPI from "./utils/FigmaAPI.js"
 import findAll from "./utils/findAll.js"
