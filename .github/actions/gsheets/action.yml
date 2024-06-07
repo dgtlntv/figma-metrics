@@ -20,31 +20,19 @@ runs:
           id: read_sheet1_data_json
           uses: jaywcjlove/github-action-read-file@main
           with:
-              path: sheet1Data.json
+              path: sheet1_data.json
 
         - name: Read sheet2Data.json
           id: read_sheet2_data_json
           uses: jaywcjlove/github-action-read-file@main
           with:
-              path: sheet2Data.json
+              path: sheet2_data.json
 
         - name: Read sheet3Data.json
           id: read_sheet3_data_json
           uses: jaywcjlove/github-action-read-file@main
           with:
-              path: sheet3Data.json
-
-        - name: Echo sheet1Data.json
-          run: echo "${{ steps.read_sheet1_data_json.outputs.content }}"
-          shell: bash
-
-        - name: Echo sheet2Data.json
-          run: echo "${{ steps.read_sheet2_data_json.outputs.content }}"
-          shell: bash
-
-        - name: Echo sheet3Data.json
-          run: echo "${{ steps.read_sheet3_data_json.outputs.content }}"
-          shell: bash
+              path: sheet3_data.json
 
         - name: Update worksheets
           id: update_worksheets
