@@ -103,4 +103,4 @@ const latestMetricsFile = process.argv[2]
 var jsonData = JSON.parse(fs.readFileSync(latestMetricsFile, "utf8"))
 
 const transformedData = transformData(jsonData)
-console.log(JSON.stringify(transformedData))
+process.stdout.write(JSON.stringify(transformedData))
