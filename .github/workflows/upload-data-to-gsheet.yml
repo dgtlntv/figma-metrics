@@ -1,43 +1,25 @@
-name: Upload data to Google Sheet
+name: Figma Metrics and Google Sheets Update
+
 on:
+    #schedule:
+    #    - cron: "0 0 * * 0"
     workflow_dispatch:
+
 jobs:
-    update-sheet:
+    generate_metrics_and_update_sheets:
         runs-on: ubuntu-latest
+
         steps:
-            - name: Read sheet1Data.json
-              id: read_sheet1_data_json
-              uses: jaywcjlove/github-action-read-file@main
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Setup Node 18
+              uses: actions/setup-node@v4
               with:
-                  path: out/sheet1Data.json
-            - name: Read sheet2Data.json
-              id: read_sheet2_data_json
-              uses: jaywcjlove/github-action-read-file@main
-              with:
-                  path: out/sheet2Data.json
-            - name: Read sheet3Data.json
-              id: read_sheet3_data_json
-              uses: jaywcjlove/github-action-read-file@main
-              with:
-                  path: out/sheet3Data.json
-            - name: Update worksheets
-              id: update_worksheets
-              uses: jroehl/gsheet.action@release
-              with:
-                  spreadsheetId: 1KC8k0460COgU9ZxBP9CRLEuunOjz4TlsQy4p82BNlA4
-                  commands: |
-                      [
-                        { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
-                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet1_data_json.outputs.content }} }},
-                        { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
-                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet2_data_json.outputs.content }} }},
-                        { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
-                        { "command": "updateData", "args": { "data": ${{ steps.read_sheet3_data_json.outputs.content }} }}
-                      ]
-              env:
-                  GSHEET_CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
-                  GSHEET_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-            - name: Echo worksheet update results
-              env:
-                  RESULTS: ${{ steps.update_worksheets.outputs.results }}
-              run: echo "$RESULTS" | jq
+                  node-version: 18
+
+            - name: Generate Metrics
+              uses: ./.github/actions/metrics
+
+            - name: Upload to Google sheets
+              uses: ./.github/actions/gsheets

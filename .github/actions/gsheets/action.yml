@@ -1,0 +1,46 @@
+name: Upload data to Google sheets
+description: This action generates metrics for Figma library usage across Canonical Figma files
+
+runs:
+    using: "composite"
+    steps:
+        - name: Get latest metrics file
+          id: get_latest_metrics
+          run: |
+              latest_folder=$(ls -td archive/*/ | head -1)
+              latest_file="${latest_folder}figma-metrics.json"
+              echo "latest_file=${latest_file}" >> $GITHUB_OUTPUT
+          shell: bash
+
+        - name: Transform data
+          id: transform_data
+          run: |
+              output=$(node transform-data.js ${{ steps.get_latest_metrics.outputs.latest_file }})
+              echo "sheet1Data=$(echo $output | jq -r '.[0]')" >> $GITHUB_OUTPUT
+              echo "sheet2Data=$(echo $output | jq -r '.[1]')" >> $GITHUB_OUTPUT
+              echo "sheet3Data=$(echo $output | jq -r '.[2]')" >> $GITHUB_OUTPUT
+          shell: bash
+
+        - name: Update worksheets
+          id: update_worksheets
+          uses: jroehl/gsheet.action@release
+          with:
+              spreadsheetId: 1KC8k0460COgU9ZxBP9CRLEuunOjz4TlsQy4p82BNlA4
+              commands: |
+                  [
+                    { "command": "getWorksheet", "args": { "worksheetTitle": "Source mix (custom vs components)" }},
+                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet1Data }} }},
+                    { "command": "getWorksheet", "args": { "worksheetTitle": "Library mix" }},
+                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet2Data }} }},
+                    { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
+                    { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet3Data }} }}
+                  ]
+          env:
+              GSHEET_CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+              GSHEET_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
+        - name: Echo worksheet update results
+          env:
+              RESULTS: ${{ steps.update_worksheets.outputs.results }}
+          run: echo "$RESULTS" | jq
+          shell: bash

@@ -15,6 +15,13 @@ async function main() {
     const figmaApi = new FigmaAPI(API_TOKEN, FIGMA_TEAM_ID)
     const startTime = new Date("2024-05-07")
     const endTime = new Date("2024-06-07")
+    const currentDate = new Date().toISOString().slice(0, 10)
+    const outputFolder = `./archive/${currentDate}`
+    const outputFilePath = `${outputFolder}/figma-metrics.json`
+
+    if (!fs.existsSync(outputFolder)) {
+        fs.mkdirSync(outputFolder, { recursive: true })
+    }
 
     // A map of all components we consider to be part of the Design System and want to track + some metadata of the component
     const componentMap = await figmaApi.getComponentMapFromFiles(FIGMA_LIBRARY_FILES)
@@ -91,9 +98,10 @@ async function main() {
         }
         projectsData.push({ projectName: projects[index].name, projectId: projects[index].id, files: fileData })
     }
-    fs.writeFile("./out/figma-metrics.json", JSON.stringify(projectsData, null, 2), (err) => {
+
+    fs.writeFile(outputFilePath, JSON.stringify(projectsData, null, 2), (err) => {
         if (err) throw err
-        console.log("The figma metrics have been saved to file!")
+        console.log(`The Figma metrics have been saved to ${outputFilePath}!`)
     })
 }
 

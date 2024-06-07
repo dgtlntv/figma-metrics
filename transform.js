@@ -99,21 +99,8 @@ function transformData(data) {
     return [sheet1Data, sheet2Data, sheet3Data]
 }
 
-var jsonData = JSON.parse(fs.readFileSync("./out/figma-metrics.json", "utf8"))
+const latestMetricsFile = process.argv[2]
+var jsonData = JSON.parse(fs.readFileSync(latestMetricsFile, "utf8"))
 
 const transformedData = transformData(jsonData)
-
-fs.writeFile("./out/sheet1Data.json", JSON.stringify(transformedData[0], null, 2), (err) => {
-    if (err) throw err
-    console.log("sheet1Data has been saved to file!")
-})
-
-fs.writeFile("./out/sheet2Data.json", JSON.stringify(transformedData[1], null, 2), (err) => {
-    if (err) throw err
-    console.log("sheet2Data has been saved to file!")
-})
-
-fs.writeFile("./out/sheet3Data.json", JSON.stringify(transformedData[2], null, 2), (err) => {
-    if (err) throw err
-    console.log("sheet3Data has been saved to file!")
-})
+console.log(JSON.stringify(transformedData))
