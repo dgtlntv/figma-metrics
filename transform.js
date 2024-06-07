@@ -42,10 +42,10 @@ function transformData(data) {
                 detachedComponents,
             } = wholeFileStats
 
-            let readyForDevNonComponentNodes = "n/a"
-            let readyForDevComponentNodes = "n/a"
-            let readyForDevTotal = "n/a"
-            let readyForDevPercentage = "n/a"
+            let readyForDevNonComponentNodes = '"n/a"'
+            let readyForDevComponentNodes = '"n/a"'
+            let readyForDevTotal = '"n/a"'
+            let readyForDevPercentage = '"n/a"'
 
             if (readyForDevStats) {
                 readyForDevNonComponentNodes = readyForDevStats.numNonComponentNodes
