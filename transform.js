@@ -103,6 +103,17 @@ const latestMetricsFile = process.argv[2]
 var jsonData = JSON.parse(fs.readFileSync(latestMetricsFile, "utf8"))
 
 const transformedData = transformData(jsonData)
-fs.writeFileSync("sheet1_data.json", JSON.stringify(transformedData[0], null, 2))
-fs.writeFileSync("sheet2_data.json", JSON.stringify(transformedData[1], null, 2))
-fs.writeFileSync("sheet3_data.json", JSON.stringify(transformedData[2], null, 2))
+
+fs.writeFile("sheet1_data.json", JSON.stringify(transformedData[0], null, 2), (err) => {
+    if (err) throw err
+    console.log(`Saved sheet1_data.json!`)
+})
+fs.writeFile("sheet2_data.json", JSON.stringify(transformedData[1], null, 2), (err) => {
+    if (err) throw err
+    console.log(`Saved sheet2_data.json!`)
+})
+
+fs.writeFile("sheet3_data.json", JSON.stringify(transformedData[2], null, 2), (err) => {
+    if (err) throw err
+    console.log(`Saved sheet3_data.json!`)
+})
