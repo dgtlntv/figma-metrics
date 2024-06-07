@@ -37,7 +37,7 @@ export default class FigmaAPI {
             if (response.ok) {
                 return await response.json()
             } else {
-                console.log("Error fetching data:", response.status, response.statusText)
+                console.log("Error fetching data:", response.status, response.statusText, response.body)
                 return
             }
         } catch (error) {
