@@ -20,6 +20,13 @@ jobs:
 
             - name: Generate Metrics
               uses: ./.github/actions/metrics
+              env:
+                  FIGMA_API_TOKEN: ${{ secrets.FIGMA_API_TOKEN }}
+                  FIGMA_TEAM_ID: ${{ secrets.FIGMA_TEAM_ID }}
+                  FIGMA_LIBRARY_FILES: ${{ secrets.FIGMA_LIBRARY_FILES }}
 
             - name: Upload to Google sheets
               uses: ./.github/actions/gsheets
+              env:
+                  GSHEET_CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
+                  GSHEET_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

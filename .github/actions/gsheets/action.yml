@@ -35,9 +35,6 @@ runs:
                     { "command": "getWorksheet", "args": { "worksheetTitle": "Detached components" }},
                     { "command": "updateData", "args": { "data": ${{ steps.transform_data.outputs.sheet3Data }} }}
                   ]
-          env:
-              GSHEET_CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
-              GSHEET_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
 
         - name: Echo worksheet update results
           env:
