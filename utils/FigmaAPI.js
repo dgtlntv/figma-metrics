@@ -76,7 +76,7 @@ export default class FigmaAPI {
     }
 
     async getComponentMapFromFiles(fileKeys) {
-        console.log("Fetching the component map for:", fileKeys)
+        console.log("Fetching the component map")
         let componentMap = {}
         for (const fileId of fileKeys) {
             const file = await this.fetchFromFigma(`${fileId}`, "files")
@@ -109,7 +109,7 @@ export default class FigmaAPI {
     }
 
     async getProjectFiles(projectId, startTime = null, endTime = null) {
-        console.log("Fetching files for project:", projectId)
+        console.log("Fetching files for project")
         let files = []
         const data = await this.fetchFromFigma(`${projectId}/files`, "projects")
         if (data.files) {
