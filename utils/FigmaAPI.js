@@ -7,6 +7,7 @@ export default class FigmaAPI {
         this.baseURL = "https://api.figma.com/v1"
         this.requestQueue = []
         this.processing = false
+        this.throttleDelay = 500
     }
 
     async fetchFromFigma(urlSubDirectory, type) {
@@ -65,13 +66,13 @@ export default class FigmaAPI {
             }
         } catch (error) {
             console.log("Error fetching data:", error)
-            resolve()
+            reject()
         }
 
         setTimeout(() => {
             this.processing = false
             this.processQueue()
-        }, 500)
+        }, this.throttleDelay)
     }
 
     async getComponentMapFromFiles(fileKeys) {

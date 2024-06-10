@@ -6,8 +6,9 @@ import processNodes from "./processNodes.js"
 import replaceComponentKeys from "./replaceComponentKeys.js"
 
 export default async function processFile(figmaApi, file, componentMap) {
-    console.log("Getting file:", file.name)
+    console.log("Fetching file:", file.name)
     const fileDocument = await figmaApi.getFile(file.key)
+    console.log("Processing file:", file.name)
     if (!fileDocument || fileDocument?.length === 0) return null
 
     const allNodes = createFlatNodeArray(fileDocument.document)
