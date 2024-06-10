@@ -5,15 +5,32 @@ export default class FigmaAPI {
         this.teamId = teamId
         this.apiToken = apiToken
         this.baseURL = "https://api.figma.com/v1"
+        this.requestQueue = []
+        this.processing = false
     }
 
     async fetchFromFigma(urlSubDirectory, type) {
-        if (!urlSubDirectory || !type) {
-            console.log("No urlSubDirectory or type provided.")
+        return new Promise((resolve) => {
+            this.requestQueue.push({ urlSubDirectory, type, resolve })
+            this.processQueue()
+        })
+    }
+
+    async processQueue() {
+        if (this.processing || this.requestQueue.length === 0) {
             return
         }
 
-        var fullUrl = ""
+        this.processing = true
+        const { urlSubDirectory, type, resolve } = this.requestQueue.shift()
+
+        if (!urlSubDirectory || !type) {
+            console.log("No urlSubDirectory or type provided.")
+            resolve()
+            return
+        }
+
+        let fullUrl = ""
         switch (type) {
             case "teams":
                 fullUrl = `${this.baseURL}/teams/${this.teamId}/${urlSubDirectory}`
@@ -26,6 +43,7 @@ export default class FigmaAPI {
                 break
             default:
                 console.log("Invalid type provided.")
+                resolve()
                 return
         }
 
@@ -37,30 +55,33 @@ export default class FigmaAPI {
             })
 
             if (response.ok) {
-                return await response.json()
+                const data = await response.json()
+                resolve(data)
             } else {
                 const errorMessage = await response.text()
                 console.log("Error fetching data:", response.status, response.statusText)
                 console.log("Error message from API:", errorMessage)
-                return
+                resolve()
             }
         } catch (error) {
             console.log("Error fetching data:", error)
-            return
+            resolve()
         }
+
+        setTimeout(() => {
+            this.processing = false
+            this.processQueue()
+        }, 500)
     }
 
     async getComponentMapFromFiles(fileKeys) {
         console.log("Fetching the component map for:", fileKeys)
         let componentMap = {}
-
         for (const fileId of fileKeys) {
             const file = await this.fetchFromFigma(`${fileId}`, "files")
             const components = await this.fetchFromFigma(`${fileId}/components`, "files")
             const componentSets = await this.fetchFromFigma(`${fileId}/component_sets`, "files")
-
             console.log("Processing library file:", file.name)
-
             if (components.meta.components) {
                 processComponents(
                     components.meta.components,
@@ -71,7 +92,6 @@ export default class FigmaAPI {
                 )
             }
         }
-
         console.log("Created component map.")
         return componentMap
     }
@@ -80,7 +100,6 @@ export default class FigmaAPI {
         console.log("Fetching team projects")
         let projects = []
         const data = await this.fetchFromFigma("projects", "teams")
-
         if (data.projects) {
             projects = projects.concat(data.projects)
         }
@@ -92,19 +111,15 @@ export default class FigmaAPI {
         console.log("Fetching files for project:", projectId)
         let files = []
         const data = await this.fetchFromFigma(`${projectId}/files`, "projects")
-
         if (data.files) {
             files = data.files.filter((file) => {
                 const lastModified = new Date(file.last_modified)
-
                 if (startTime && lastModified < startTime) {
                     return false
                 }
-
                 if (endTime && lastModified > endTime) {
                     return false
                 }
-
                 return true
             })
         }
@@ -112,7 +127,6 @@ export default class FigmaAPI {
     }
 
     async getFile(fileId) {
-        console.log("Fetching file:", fileId)
         return await this.fetchFromFigma(`${fileId}`, "files")
     }
 }

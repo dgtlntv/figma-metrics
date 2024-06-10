@@ -1,4 +1,3 @@
-// utils/processProject.js
 import processFile from "./processFile.js"
 
 export default async function processProject(figmaApi, project, componentMap, startTime, endTime) {
@@ -8,7 +7,7 @@ export default async function processProject(figmaApi, project, componentMap, st
     const fileData = await Promise.all(
         projectFiles.map((file, index) => {
             console.log(`Processing file ${index + 1} of ${projectFiles.length}`)
-            return processFile(figmaApi, file, componentMap)()
+            return processFile(figmaApi, file, componentMap)
         })
     )
 

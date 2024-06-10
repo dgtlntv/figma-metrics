@@ -21,7 +21,7 @@ export default function calculateStats(allNodes, componentNodes, totalComponentN
         numComponentNodes: totalComponentNodeCount,
         numNonComponentNodes: allNodes.length - totalComponentNodeCount,
         sourceMixComponentNodes: Math.round((totalComponentNodeCount / allNodes.length) * 100),
-        sourceMixNonComponentNodes: Math.round((allNodes.length - totalComponentNodeCount / allNodes.length) * 100),
+        sourceMixNonComponentNodes: Math.round(((allNodes.length - totalComponentNodeCount) / allNodes.length) * 100),
         detachedComponents: detachedComponents,
         componentUsage: componentUsage,
     }

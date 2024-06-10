@@ -1,6 +1,7 @@
 import * as fs from "fs"
 import FigmaAPI from "./utils/FigmaAPI.js"
 import processProject from "./utils/processProject.js"
+import "dotenv/config"
 
 async function main() {
     const API_TOKEN = process.env["FIGMA_API_TOKEN"]
@@ -20,7 +21,7 @@ async function main() {
     const projectsData = await Promise.all(
         projects.map((project) => {
             console.log(`Fetching file ids of project ${project.name}`)
-            return processProject(figmaApi, project, componentMap, startTime, endTime)()
+            return processProject(figmaApi, project, componentMap, startTime, endTime)
         })
     )
 
