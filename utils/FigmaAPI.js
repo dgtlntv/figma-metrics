@@ -1,4 +1,4 @@
-import processComponents from "./processComponents"
+import processComponents from "./processComponents.js"
 
 export default class FigmaAPI {
     constructor(apiToken, teamId) {
