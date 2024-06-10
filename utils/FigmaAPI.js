@@ -62,7 +62,13 @@ export default class FigmaAPI {
             console.log("Processing library file:", file.name)
 
             if (components.meta.components) {
-                processComponents(components.meta.components, componentSets?.meta?.component_sets, componentMap)
+                processComponents(
+                    components.meta.components,
+                    componentSets?.meta?.component_sets,
+                    componentMap,
+                    file,
+                    fileId
+                )
             }
         }
 

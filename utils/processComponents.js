@@ -1,4 +1,4 @@
-export default function processComponents(components, componentSets, componentMap) {
+export default function processComponents(components, componentSets, componentMap, file, fileId) {
     const componentSetMap = (componentSets || []).reduce((map, set) => {
         map[set.node_id] = set.key
         return map
