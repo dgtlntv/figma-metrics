@@ -16,14 +16,12 @@ export default function calculateStats(allNodes, componentNodes, totalComponentN
         componentUsage[componentKey].count++
     })
 
-    const nonComponentNodes = allNodes.length - totalComponentNodeCount
-
     return {
         numTotalNodes: allNodes.length,
         numComponentNodes: totalComponentNodeCount,
-        numNonComponentNodes: nonComponentNodes,
+        numNonComponentNodes: allNodes.length - totalComponentNodeCount,
         sourceMixComponentNodes: Math.round((totalComponentNodeCount / allNodes.length) * 100),
-        sourceMixNonComponentNodes: Math.round((nonComponentNodes / allNodes.length) * 100),
+        sourceMixNonComponentNodes: Math.round((allNodes.length - totalComponentNodeCount / allNodes.length) * 100),
         detachedComponents: detachedComponents,
         componentUsage: componentUsage,
     }

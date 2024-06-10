@@ -1,22 +1,14 @@
-import findAll from "./findAll.js"
+import createFlatNodeArray from "./createFlatNodeArray.js"
 
 export default function filterHiddenNodes(nodes) {
-    // TODO do not filter out Tracking pixel
+    const hiddenNodes = new Set()
 
-    let allHiddenNodes = []
-    nodes.forEach((node) => {
-        if (node.visible === false && !allHiddenNodes.includes(node.id)) {
-            const subNodes = findAll(node, () => true)
-            allHiddenNodes.push(node.id)
-            subNodes.forEach((n) => allHiddenNodes.push(n.id))
+    for (const node of nodes) {
+        if (node.visible === false && !node.name.startsWith("TRACKING PIXEL") && !hiddenNodes.has(node.id)) {
+            hiddenNodes.add(node.id)
+            createFlatNodeArray(node).forEach((subNode) => hiddenNodes.add(subNode.id))
         }
-    })
+    }
 
-    const nonHiddenNodes = nodes.filter((n) => {
-        if (allHiddenNodes.includes(n.id)) {
-            return false
-        }
-        return true
-    })
-    return nonHiddenNodes
+    return nodes.filter((n) => !hiddenNodes.has(n.id))
 }

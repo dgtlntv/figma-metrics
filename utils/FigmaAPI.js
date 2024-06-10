@@ -1,3 +1,5 @@
+import processComponents from "./processComponents"
+
 export default class FigmaAPI {
     constructor(apiToken, teamId) {
         this.teamId = teamId
@@ -56,38 +58,11 @@ export default class FigmaAPI {
             const file = await this.fetchFromFigma(`${fileId}`, "files")
             const components = await this.fetchFromFigma(`${fileId}/components`, "files")
             const componentSets = await this.fetchFromFigma(`${fileId}/component_sets`, "files")
+
             console.log("Processing library file:", file.name)
 
-            const processEntities = (entities, componentSetMap) => {
-                for (const entity of entities) {
-                    const getReadableName = () => {
-                        if (entity.name.includes("=")) {
-                            return entity.containing_frame.name
-                        }
-                        return entity.name
-                    }
-
-                    const componentSetKey = componentSetMap[entity.containing_frame.nodeId]
-
-                    componentMap[entity.key] = {
-                        componentName: getReadableName(),
-                        componentId: entity.key,
-                        libraryName: file.name,
-                        libraryId: fileId,
-                        ...(componentSetKey && { componentSetKey }),
-                    }
-                }
-            }
-
-            const componentSetMap = {}
-            if (componentSets.meta.component_sets) {
-                for (const componentSet of componentSets.meta.component_sets) {
-                    componentSetMap[componentSet.node_id] = componentSet.key
-                }
-            }
-
             if (components.meta.components) {
-                processEntities(components.meta.components, componentSetMap)
+                processComponents(components.meta.components, componentSets?.meta?.component_sets, componentMap)
             }
         }
 
@@ -98,7 +73,7 @@ export default class FigmaAPI {
     async getTeamProjects() {
         console.log("Fetching team projects")
         let projects = []
-        const data = await this.fetchFromFigma(`projects`, "teams")
+        const data = await this.fetchFromFigma("projects", "teams")
 
         if (data.projects) {
             projects = projects.concat(data.projects)
