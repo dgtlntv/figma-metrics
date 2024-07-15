@@ -1,7 +1,6 @@
 name: Figma Metrics and Google Sheets Update
 
 on:
-    schedule:
     workflow_dispatch:
 
 jobs:
